@@ -1,154 +1,23 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Popup Love Message</title>
-  <style>
-    body {
-      margin: 0;
-      background-color: black;
-      overflow: hidden;
-    }
-
-    .popup {
-      position: absolute;
-      padding: 10px 20px;
-      background-color: #F8C7DA;
-      font-family: 'Comic Sans MS', cursive, sans-serif;
-      font-weight: bold;
-      font-size: 18px;
-      color: white;
-      border-radius: 8px;
-      box-shadow: 0 0 10px pink;
-      animation: fadeOut 10s ease forwards;
-    }
-
-    @keyframes fadeOut {
-      0% { opacity: 1; transform: scale(1); }
-      100% { opacity: 0; transform: scale(0.5); }
-    }
-
-    .dialog {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background-color: #F8C7DA;
-      padding: 20px;
-      border-radius: 10px;
-      font-family: 'Comic Sans MS', cursive, sans-serif;
-      font-size: 24px;
-      color: white;
-      text-align: center;
-      box-shadow: 0 0 15px pink;
-      z-index: 1000;
-      max-width: 80%;
-      box-sizing: border-box;
-    }
-
-    /* Media Queries cho màn hình nhỏ */
-    @media screen and (max-width: 600px) {
-      .popup {
-        padding: 8px 12px;
-        font-size: 14px;
-        max-width: 150px;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-      }
-
-      .dialog {
-        padding: 15px;
-        font-size: 18px;
-        max-width: 90%;
-      }
-    }
-
-    @media screen and (max-width: 400px) {
-      .popup {
-        padding: 6px 10px;
-        font-size: 12px;
-        max-width: 120px;
-      }
-
-      .dialog {
-        padding: 10px;
-        font-size: 16px;
-      }
-    }
-  </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>وحشتني بجد 💔</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div id="startDialog" class="dialog">Click vào màn hình nhaaa!</div>
+  <div class="container">
+    <h1 class="typewriter">تملي معاك... حتى وانت بعيد عني 😢</h1>
 
-  <audio id="backgroundMusic" src="assets/music.mp3" loop></audio>
+    <audio id="bg-audio" autoplay loop>
+      <source src="amrdiab.mp3" type="audio/mpeg" />
+      متصفحك لا يدعم تشغيل الصوت.
+    </audio>
 
-<script>
-  const messages = ["I Miss You !"];
-  const colors = ["white"];
-  const dialog = document.getElementById("startDialog");
-  const audio = document.getElementById("backgroundMusic");
+    <button id="toggle-audio">🔇 كتم الصوت</button>
+  </div>
 
-  function createPopup() {
-    const popup = document.createElement("div");
-    popup.className = "popup";
-    popup.textContent = messages[Math.floor(Math.random() * messages.length)];
-    popup.style.color = colors[Math.floor(Math.random() * colors.length)];
-
-    const screenWidth = window.innerWidth;
-    const screenHeight = window.innerHeight;
-
-    // Điều chỉnh giới hạn vị trí để pop-up không tràn ra ngoài
-    const maxWidth = screenWidth - 150; // Giảm kích thước tối đa của pop-up
-    const maxHeight = screenHeight - 50;
-    const x = Math.floor(Math.random() * (maxWidth < 0 ? 0 : maxWidth));
-    const y = Math.floor(Math.random() * (maxHeight < 0 ? 0 : maxHeight));
-
-    popup.style.left = `${x}px`;
-    popup.style.top = `${y}px`;
-
-    document.body.appendChild(popup);
-
-    setTimeout(() => {
-      popup.remove();
-    }, 25000);
-  }
-
-  function startPopups(count) {
-    let created = 0;
-    const interval = setInterval(() => {
-      if (created >= count) {
-        clearInterval(interval);
-        return;
-      }
-      createPopup();
-      created++;
-    }, 30);
-  }
-
-  function enterFullscreen() {
-    const elem = document.documentElement;
-    if (elem.requestFullscreen) {
-      elem.requestFullscreen();
-    } else if (elem.mozRequestFullScreen) {
-      elem.mozRequestFullScreen();
-    } else if (elem.webkitRequestFullscreen) {
-      elem.webkitRequestFullscreen();
-    } else if (elem.msRequestFullscreen) {
-      elem.msRequestFullscreen();
-    }
-  }
-
-  document.addEventListener("click", function startExperience() {
-    dialog.style.display = "none";
-    audio.play().catch(error => {
-      console.log("Lỗi phát nhạc:", error);
-    });
-    enterFullscreen();
-    startPopups(200);
-    document.removeEventListener("click", startExperience);
-  });
-</script>
+  <script src="script.js"></script>
 </body>
 </html>
